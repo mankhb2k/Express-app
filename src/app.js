@@ -4,14 +4,16 @@ import sequelize from './config/db.js'
 import { notFound, errorHandler } from './middlewares/errorCommon.js'
 import Car from './modules/car/car.model.js'
 import carRoutes from './modules/car/car.router.js'
+import userRoutes from './modules/user/user.router.js'
 
 
 const app = express()
 app.use(express.json())
 app.use(morgan('dev'))
 
-// Gắn route cho car
+// Gắn route
 app.use('/cars', carRoutes)
+app.use('/users', userRoutes)
 
 app.use(notFound);      // middleware 404, đặt sau routes
 app.use(errorHandler);  // middleware xử lý lỗi, đặt cuối cùng
@@ -25,9 +27,6 @@ app.use(errorHandler);  // middleware xử lý lỗi, đặt cuối cùng
   } catch (err) {
     console.error('Database sync error:', err);
   }
-})();
-
-
-
+})()
 
 export default app
